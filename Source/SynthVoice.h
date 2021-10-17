@@ -28,7 +28,19 @@ private:
     juce::ADSR adsr;
     juce::ADSR::Parameters adsrParams;
     
-    //juce::dsp::Oscillator<float> osc { [](float x) { return std::sin(x); }};
-    // juce::dsp::Gain<float> gainl
+    //    juce::dsp::Oscillator<float> osc { [](float x) {return std::sin (x);}};
+    //    juce::dsp::Oscillator<float> osc { [](float x) {return x/juce::MathConstants<float>::pi; }};
+    juce::dsp::Oscillator<float> osc { [](float x) {return x<0.0f ? -1.0f : 1.0f;}, 200};
+    
+    // Different kind of waveforms:
+    // return std::sin (x); // Sine
+    // return x/juce::MathConstants<float>::pi; // Saw
+    // return x<0.0f ? -1.0f : 1.0f; // Square
+    
+    juce::dsp::Gain<float> gain;
+    
+    juce::Slider frequencySlider;
+    juce::Label frequencyLabel;
+    
     bool isPrepared {false};
 };
