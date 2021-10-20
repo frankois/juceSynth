@@ -156,6 +156,10 @@ void JuceSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, ju
             // LFO
         }
     }
+    
+    for (const juce::MidiMessageMetadata metadata : midiMessages)
+        if (metadata.numBytes == 3)
+            juce::Logger::writeToLog("TimeStamp: " + juce::String (metadata.getMessage().getTimeStamp()));
 
     synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
